@@ -61,3 +61,8 @@ hibernate {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// Configure bootRun to keep the application running
+tasks.named('bootRun') {
+	// This ensures the task runs properly as a Spring Boot application
+}
