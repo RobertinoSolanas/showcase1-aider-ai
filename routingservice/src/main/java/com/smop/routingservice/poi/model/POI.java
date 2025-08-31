@@ -18,7 +18,7 @@ public class POI {
         this.name = name;
         this.description = description;
         this.latitude = latitude;
-       0this.longitude = longitude;
+        this.longitude = longitude;
         this.city = city;
     }
 }
