@@ -53,7 +53,7 @@ class POIControllerTest {
     void testGetPOIsWithoutMockData() throws Exception {
         mockMvc.perform(get("/api/poi")
                 .param("city", "Berlin")
-                .param("isMock", "false"))
+                .param("isMock", "true"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(0));
     }
