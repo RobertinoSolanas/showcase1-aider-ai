@@ -5,7 +5,6 @@ import com.smop.routingservice.poi.service.POIService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,7 +44,9 @@ class POIControllerTest {
                 .param("city", "Berlin")
                 .param("isMock", "true"))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].id").value("1"))
                 .andExpect(jsonPath("$[0].name").value("Test POI"));
     }
 
@@ -53,8 +54,9 @@ class POIControllerTest {
     void testGetPOIsWithoutMockData() throws Exception {
         mockMvc.perform(get("/api/poi")
                 .param("city", "Berlin")
-                .param("isMock", "true"))
+                .param("isMock", "false"))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(0));
     }
 }
