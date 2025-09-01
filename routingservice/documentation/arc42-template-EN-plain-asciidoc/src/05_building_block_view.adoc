@@ -14,8 +14,8 @@ The architecture separates concerns into distinct layers: presentation (REST API
 
 Contained Building Blocks::
 * REST Controller Layer: Handles HTTP requests and responses
-* Service Layer: Implements business logic for POI retrieval
-* Model Layer: Defines data structures for POI entities
+* Service Layer: Implements business logic for POI and City retrieval
+* Model Layer: Defines data structures for POI and City entities
 * Configuration Layer: Manages application configuration and documentation
 
 Important Interfaces::
@@ -40,6 +40,24 @@ Fulfilled Requirements::
 * API-1: RESTful POI retrieval
 * API-2: Mock data support
 
+==== City Controller
+
+Responsible for handling incoming HTTP requests related to City information and returning appropriate responses.
+
+Interface(s)::
+* GET /api/city?city={city}&isMock={true|false}
+
+Quality/Performance Characteristics::
+* Response time < 100ms for mock data
+* Supports concurrent requests
+
+Directory/File Location::
+* src/main/java/com/smop/routingservice/city/controller/
+
+Fulfilled Requirements::
+* API-3: RESTful City retrieval
+* API-4: Mock data support for cities
+
 ==== POI Service
 
 Implements the business logic for retrieving Points of Interest from various data sources.
@@ -58,6 +76,24 @@ Fulfilled Requirements::
 * BUS-1: POI data retrieval logic
 * BUS-2: Mock data implementation
 
+==== City Service
+
+Implements the business logic for retrieving City information from various data sources.
+
+Interface(s)::
+* CityService interface with getPOIs() method
+
+Quality/Performance Characteristics::
+* Efficient data retrieval and transformation
+* Extensible design for future data sources
+
+Directory/File Location::
+* src/main/java/com/smop/routingservice/city/service/
+
+Fulfilled Requirements::
+* BUS-3: City data retrieval logic
+* BUS-4: Mock data implementation for cities
+
 ==== POI Model
 
 Defines the data structure for Points of Interest entities used throughout the application.
@@ -70,6 +106,19 @@ Directory/File Location::
 
 Fulfilled Requirements::
 * DATA-1: Standardized POI data representation
+
+==== City Model
+
+Defines the data structure for City entities used throughout the application.
+
+Interface(s)::
+* City data class with standard getters/setters
+
+Directory/File Location::
+* src/main/java/com/smop/routingservice/city/model/
+
+Fulfilled Requirements::
+* DATA-2: Standardized City data representation
 
 ==== Configuration
 
@@ -100,6 +149,17 @@ The controller layer consists of a single REST controller that:
 Dependencies:
 * POI Service for business logic execution
 
+==== White Box City Controller
+
+The controller layer consists of a single REST controller that:
+1. Receives HTTP GET requests with city and mock parameters
+2. Validates input parameters
+3. Delegates to the service layer
+4. Formats and returns JSON responses
+
+Dependencies:
+* City Service for business logic execution
+
 ==== White Box POI Service
 
 The service implementation:
@@ -110,3 +170,14 @@ The service implementation:
 
 Dependencies:
 * POI Model for data representation
+
+==== White Box City Service
+
+The service implementation:
+1. Determines whether to return mock or real data
+2. For mock data: Retrieves predefined Cities based on city name
+3. For real data: Placeholder for future database/external API integration
+4. Returns array of City objects
+
+Dependencies:
+* City Model for data representation
