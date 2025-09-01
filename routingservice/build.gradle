@@ -65,4 +65,5 @@ tasks.named('test') {
 // Configure bootRun to keep the application running
 tasks.named('bootRun') {
 	// This ensures the task runs properly as a Spring Boot application
+	mainClass = 'com.smop.routingservice.RoutingserviceApplication'
 }
