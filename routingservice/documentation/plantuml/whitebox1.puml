@@ -1,0 +1,54 @@
+@startuml
+' Routing Service Component Diagram
+title Routing Service - Component View
+
+' Define styles
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+' Actor
+actor "Client" as client
+
+' Main Application Component
+package "Routing Service" {
+  [RoutingserviceApplication] as app
+  
+  package "POI Module" {
+    [POIController] as controller
+    [POIService] as service
+    [POIServiceImpl] as serviceImpl
+    [POI] as model
+  }
+  
+  package "Configuration" {
+    [SwaggerConfig] as swagger
+  }
+}
+
+' Relationships
+client --> controller : "HTTP Requests\n/api/poi"
+controller --> service : "getPOIs()"
+service <|-- serviceImpl : "implements"
+serviceImpl --> model : "creates/manipulates"
+controller --> model : "returns POI[]"
+app --> controller : "Spring Boot\nComponent Scan"
+app --> service : "Dependency\nInjection"
+app --> swagger : "Configuration"
+
+note right of controller
+  REST Controller handling
+  POI-related endpoints
+end note
+
+note right of serviceImpl
+  Implementation providing
+  mock POI data for Berlin,
+  Paris, and London
+end note
+
+note bottom of swagger
+  OpenAPI/Swagger
+  Configuration
+end note
+
+@enduml
