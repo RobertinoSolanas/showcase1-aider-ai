@@ -1,124 +1,112 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-building-block-view]]
-
-
 == Building Block View
 
-ifdef::arc42help[]
-
-endif::arc42help[]
+The Routing Service follows a layered architecture pattern with clear separation of concerns between different components.
 
 === Whitebox Overall System
 
-ifdef::arc42help[]
-
-endif::arc42help[]
-
-_**<Overview Diagram>**_
+image::building-blocks-overview.png["Overall System Building Blocks"]
 
 Motivation::
-
-_<text explanation>_
-
+The architecture separates concerns into distinct layers: presentation (REST API), business logic (services), and data model. This enables independent development, testing, and maintenance of each component.
 
 Contained Building Blocks::
-_<Description of contained building block (black boxes)>_
+* REST Controller Layer: Handles HTTP requests and responses
+* Service Layer: Implements business logic for POI retrieval
+* Model Layer: Defines data structures for POI entities
+* Configuration Layer: Manages application configuration and documentation
 
 Important Interfaces::
-_<Description of important interfaces>_
+* HTTP/REST API for external communication
+* Service interface for internal component communication
 
-ifdef::arc42help[]
+==== POI Controller
 
-endif::arc42help[]
+Responsible for handling incoming HTTP requests related to Points of Interest and returning appropriate responses.
 
-==== <Name black box 1>
+Interface(s)::
+* GET /api/poi?city={city}&isMock={true|false}
 
-ifdef::arc42help[]
+Quality/Performance Characteristics::
+* Response time < 100ms for mock data
+* Supports concurrent requests
 
-endif::arc42help[]
+Directory/File Location::
+* src/main/java/com/smop/routingservice/poi/controller/
 
-_<Purpose/Responsibility>_
+Fulfilled Requirements::
+* API-1: RESTful POI retrieval
+* API-2: Mock data support
 
-_<Interface(s)>_
+==== POI Service
 
-_<(Optional) Quality/Performance Characteristics>_
+Implements the business logic for retrieving Points of Interest from various data sources.
 
-_<(Optional) Directory/File Location>_
+Interface(s)::
+* POIService interface with getPOIs() method
 
-_<(Optional) Fulfilled Requirements>_
+Quality/Performance Characteristics::
+* Efficient data retrieval and transformation
+* Extensible design for future data sources
 
-_<(optional) Open Issues/Problems/Risks>_
+Directory/File Location::
+* src/main/java/com/smop/routingservice/poi/service/
 
+Fulfilled Requirements::
+* BUS-1: POI data retrieval logic
+* BUS-2: Mock data implementation
 
+==== POI Model
 
+Defines the data structure for Points of Interest entities used throughout the application.
 
-==== <Name black box 2>
+Interface(s)::
+* POI data class with standard getters/setters
 
-_<black box template>_
+Directory/File Location::
+* src/main/java/com/smop/routingservice/poi/model/
 
-==== <Name black box n>
+Fulfilled Requirements::
+* DATA-1: Standardized POI data representation
 
-_<black box template>_
+==== Configuration
 
+Manages application configuration including API documentation setup.
 
-==== <Name interface 1>
+Interface(s)::
+* Swagger/OpenAPI configuration
+* Application properties
 
-...
+Directory/File Location::
+* src/main/java/com/smop/routingservice/config/
+* src/main/resources/application.properties
 
-==== <Name interface m>
-
-
+Fulfilled Requirements::
+* CONF-1: API documentation
+* CONF-2: Application configuration
 
 === Level 2
 
-ifdef::arc42help[]
+==== White Box POI Controller
 
-endif::arc42help[]
+The controller layer consists of a single REST controller that:
+1. Receives HTTP GET requests with city and mock parameters
+2. Validates input parameters
+3. Delegates to the service layer
+4. Formats and returns JSON responses
 
-==== White Box _<building block 1>_
+Dependencies:
+* POI Service for business logic execution
 
-ifdef::arc42help[]
+==== White Box POI Service
 
-endif::arc42help[]
+The service implementation:
+1. Determines whether to return mock or real data
+2. For mock data: Retrieves predefined POIs based on city
+3. For real data: Placeholder for future database/external API integration
+4. Returns array of POI objects
 
-_<white box template>_
-
-==== White Box _<building block 2>_
-
-
-_<white box template>_
-
-...
-
-==== White Box _<building block m>_
-
-
-_<white box template>_
-
-
-
-=== Level 3
-
-ifdef::arc42help[]
-
-endif::arc42help[]
-
-==== White Box <_building block x.1_>
-
-ifdef::arc42help[]
-
-endif::arc42help[]
-
-_<white box template>_
-
-
-==== White Box <_building block x.2_>
-
-_<white box template>_
-
-
-
-==== White Box <_building block y.1_>
-
-_<white box template>_
+Dependencies:
+* POI Model for data representation

@@ -3,31 +3,47 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Introduction and Goals
 
-ifdef::arc42help[]
-
-endif::arc42help[]
+The Routing Service is a microservice designed to provide Points of Interest (POI) data for navigation and location-based applications. It serves as a central component for retrieving geographical points of interest for various cities, supporting both real and mock data scenarios for development and testing purposes.
 
 === Requirements Overview
 
-ifdef::arc42help[]
-
-endif::arc42help[]
+The primary requirements for the Routing Service include:
+* Provide a RESTful API for retrieving Points of Interest by city
+* Support mock data mode for development and testing environments
+* Maintain extensible architecture for future integration with real data sources
+* Ensure fast response times for POI queries
+* Provide comprehensive API documentation using OpenAPI/Swagger
 
 === Quality Goals
 
-ifdef::arc42help[]
+[cols="1,2"]
+|===
+|Quality Goal |Motivation
 
-endif::arc42help[]
+|Performance
+|Fast response times for API queries to support real-time applications
+
+|Maintainability
+|Clean, modular code structure to facilitate future enhancements
+
+|Testability
+|Built-in mock data support and comprehensive test coverage
+
+|Documentation
+|Clear API documentation and architectural guidelines
+
+|Scalability
+|Microservice architecture to support horizontal scaling
+|===
 
 === Stakeholders
-
-ifdef::arc42help[]
-
-endif::arc42help[]
 
 [options="header",cols="1,2,2"]
 |===
 |Role/Name|Contact|Expectations
-| _<Role-1>_ | _<Contact-1>_ | _<Expectation-1>_
-| _<Role-2>_ | _<Contact-2>_ | _<Expectation-2>_
+|Development Team|dev-team@company.com|Clear architecture, easy to extend and maintain
+|QA Team|qa-team@company.com|Comprehensive test coverage, reliable mock data
+|Product Owner|po@company.com|Fast delivery, clear requirements fulfillment
+|Operations Team|ops@company.com|Easy deployment, monitoring capabilities
+|API Consumers|N/A|Well-documented, stable API interface
 |===
